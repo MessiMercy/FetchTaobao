@@ -56,18 +56,18 @@ public class Main {
 		// default:
 		// break;
 		// }
-		String shopName = "雷蛇亿果专卖店";
-		String shopName2 = "简普服饰旗舰店";
-		String keyWord2 = "羽绒服";
-		String keyWord = "鼠标";
+		// String shopName = "雷蛇亿果专卖店";
+		String shopName = "马克华菲官方旗舰店";
+		String keyWord = "羽绒服";
+		// String keyWord = "鼠标";
 		HttpHost proxy = null;
 		CatchAndFigure ca = new Taobao(shopName, proxy);
-		CatchAndFigure ca2 = new Taobao(shopName2, proxy);
+		// CatchAndFigure ca2 = new Taobao(shopName2, proxy);
 		// CatchAndFigure ca = new Tmall();
-		new Thread(new MultiThread(ca, keyWord, proxy, 0, 50)).start();
-		new Thread(new MultiThread(ca2, keyWord2, proxy, 0, 50)).start();
-		new Thread(new MultiThread(ca, keyWord, proxy, 51, 100)).start();
-		new Thread(new MultiThread(ca2, keyWord2, proxy, 51, 100)).start();
+		new Thread(new MultiThread(ca, keyWord, proxy, 0, 10)).start();
+		// new Thread(new MultiThread(ca2, keyWord2, proxy, 0, 50)).start();
+		new Thread(new MultiThread(ca, keyWord, proxy, 11, 20)).start();
+		// new Thread(new MultiThread(ca2, keyWord2, proxy, 51, 100)).start();
 		while (true) {
 			if (Thread.activeCount() == 1) {
 				break;
@@ -82,7 +82,7 @@ public class Main {
 		for (Document document : list) {
 			String hostName = document.get("店名").toString();
 			// System.out.println(hostName + "-----------------");
-			if (hostName.contains(shopName) || hostName.contains(shopName2)) {
+			if (hostName.contains(shopName)) {
 				System.out.println(document.toJson());
 			}
 			CrawlerLib.printResult(document.toJson(), true);

@@ -132,9 +132,9 @@ public class Taobao implements CatchAndFigure {
 					+ "&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_" + temp + "&ie=utf8";
 		} else {
 			url = "https://s.taobao.com/search?q=" + encodeKeyWord
-					+ "&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_" + temp + "&ie=utf8&bcoffset="
-					+ (5 - 3 * index) + "&ntoffset=" + (5 - 3 * index) + "p4plefttype=3%2C1&p4pleftnum=1%2C3&s="
-					+ 44 * index;
+					+ "&imgfile=&commend=all&ssid=s5-e&search_type=item&sourceId=tb.index&spm=a21bo.7724922.8452-taobao-item.1&ie=utf8&initiative_id=tbindexz_"
+					+ temp + "&bcoffset=" + (5 - 3 * index) + "&ntoffset=" + (5 - 3 * index)
+					+ "p4plefttype=3%2C1&p4pleftnum=1%2C3&s=" + 44 * index;
 		}
 		request = CrawlerLib.getResponse(url, null, null, proxy);
 		request.setHeader("cna", "1234DsBFTHcCAd3tnrhwImeX");
@@ -149,19 +149,28 @@ public class Taobao implements CatchAndFigure {
 			System.out.println(html.length());
 			doc = Jsoup.parse(html);
 			Elements json = doc.select("script");
-			int i = 0;
+			// int i = 0;
 			for (Element element : json) {
-				if (i == 4) {
+				// if (i == 4) {
+				// myJson = element.html().substring(15);
+				// break;
+				// }
+				if (element.toString().contains("g_srp_loadCss")) {
 					myJson = element.html().substring(15);
-					break;
 				}
 				// printResult(element.html(), true);
 				// printResult("\r\n-----------------------------------------------------------\r\n",
 				// true);
-				i++;
+				// i++;
 			}
 			int offset = myJson.indexOf("g_srp_loadCss") - 6;
-			myJson = myJson.substring(0, offset);
+			try {
+				myJson = myJson.substring(0, offset);
+			} catch (Exception e) {
+				CrawlerLib.printResult(myJson, true);
+				System.out.println("找不到特征字符串");
+				System.exit(0);
+			}
 			// printResult(myJson, false);
 			// System.out.println(json);
 		} catch (ClientProtocolException e) {
@@ -204,9 +213,10 @@ public class Taobao implements CatchAndFigure {
 			String endsTime = null;
 			org.bson.Document doc = new org.bson.Document("商品名", name);
 			if (host.contains(shopName)) {
-				String html = getUrl(url, proxy);
-				endsTime = getStartAndEndTime(html, true);
-				doc.append("下架时间", endsTime);
+				// 暂时移除上下架时间
+				// String html = getUrl(url, proxy);
+				// endsTime = getStartAndEndTime(html, true);
+				doc.append("下架时间", "null");
 			}
 			doc.append("店名", ensureNotEmpty(host));
 			doc.append("详情地址", ensureNotEmpty(url));
