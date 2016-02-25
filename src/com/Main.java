@@ -61,12 +61,12 @@ public class Main {
 		String keyWord = "ÓðÈÞ·þ";
 		// String keyWord = "Êó±ê";
 		HttpHost proxy = null;
-		CatchAndFigure ca = new Taobao(shopName, proxy);
+		CatchAndFigure ca = new ZTaobao();
 		// CatchAndFigure ca2 = new Taobao(shopName2, proxy);
 		// CatchAndFigure ca = new Tmall();
-		new Thread(new MultiThread(ca, keyWord, proxy, 0, 10)).start();
+		new Thread(new MultiThread(ca, keyWord, proxy, 0, 40)).start();
 		// new Thread(new MultiThread(ca2, keyWord2, proxy, 0, 50)).start();
-		new Thread(new MultiThread(ca, keyWord, proxy, 11, 20)).start();
+		new Thread(new MultiThread(ca, keyWord, proxy, 41, 79)).start();
 		// new Thread(new MultiThread(ca2, keyWord2, proxy, 51, 100)).start();
 		while (true) {
 			if (Thread.activeCount() == 1) {

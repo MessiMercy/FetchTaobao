@@ -163,13 +163,13 @@ public class Taobao implements CatchAndFigure {
 				// true);
 				// i++;
 			}
-			int offset = myJson.indexOf("g_srp_loadCss") - 6;
 			try {
+				int offset = myJson.indexOf("g_srp_loadCss") - 6;
 				myJson = myJson.substring(0, offset);
 			} catch (Exception e) {
 				CrawlerLib.printResult(myJson, true);
 				System.out.println("ÕÒ²»µ½ÌØÕ÷×Ö·û´®");
-				System.exit(0);
+				// System.exit(0);
 			}
 			// printResult(myJson, false);
 			// System.out.println(json);
